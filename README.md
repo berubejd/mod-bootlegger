@@ -38,7 +38,7 @@ money." error and charge nothing.
 ## Compatibility
 
 - Stock [azerothcore/azerothcore-wotlk](https://github.com/azerothcore/azerothcore-wotlk) master
-- [liyunfan1223/mod-playerbots](https://github.com/liyunfan1223/mod-playerbots)
+- [mod-playerbots/azerothcore-wotlk](https://github.com/mod-playerbots/azerothcore-wotlk)
   (group resets skip bots safely; no playerbot symbols in the source)
 - Builds at `-std=c++14` (and forward-compatible with C++17)
 
@@ -86,7 +86,7 @@ Full commented list: [conf/mod_bootlegger.conf.dist](conf/mod_bootlegger.conf.di
 |---|---|
 | `creature_template` entry | `3460604` |
 | Display | `7179` (borrowed from creature 2685 — that row is never modified) |
-| Spawn GUIDs | `6000026`–`6000035` (Stormwind, Ironforge, Undercity, Silvermoon, Exodar, Orgrimmar, Thunder Bluff, Darnassus, Dalaran, Shattrath) |
+| Spawn GUIDs | `7000026`–`7000035` (Stormwind, Ironforge, Undercity, Silvermoon, Exodar, Orgrimmar, Thunder Bluff, Darnassus, Dalaran, Shattrath) |
 | `npc_text` | `3460700` (greeting) |
 | Script | `npc_bootlegger`, `npcflag = 1` (gossip only) |
 

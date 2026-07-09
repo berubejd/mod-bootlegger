@@ -1,7 +1,7 @@
 -- mod-bootlegger uninstall — removes creature spawns, template, and gossip text.
 
 SET @ENTRY   := 3460604;
-SET @GUID    := 6000026;
+SET @GUID    := 7000026;
 SET @TEXT_ID := 3460700;
 
 DELETE FROM `creature` WHERE `guid` BETWEEN @GUID AND @GUID + 9;

@@ -3,12 +3,12 @@
 -- Derived values (acore_world via MOD_UAC_WORLD_DATABASE_INFO, 2026-07-09):
 --   @ENTRY 3460604  — MAX(creature_template.entry)+1, COUNT=0 confirmed
 --   @MODEL 7179     — creature_template_model WHERE CreatureID=2685 ORDER BY Idx LIMIT 1
---   @GUID 6000026   — MAX(creature.guid)+1; block @GUID..@GUID+9 (10 spawns)
+--   @GUID 7000026   — MAX(creature.guid)+1; block @GUID..@GUID+9 (10 spawns)
 --   @TEXT_ID 3460700 — custom npc_text band (paired with module entry range)
 
 SET @ENTRY   := 3460604;
 SET @MODEL   := 7179;
-SET @GUID    := 6000026;
+SET @GUID    := 7000026;
 SET @TEXT_ID := 3460700;
 
 DELETE FROM `npc_text` WHERE `ID` = @TEXT_ID;

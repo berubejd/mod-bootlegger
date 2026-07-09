@@ -197,7 +197,7 @@ Implemented in `BootlegGossipUtil.cpp`; do not regress these without owner sign-
   and tests on a deploy server. Verify API signatures against the neighboring
   `azerothcore-wotlk/` sources on disk instead of memory.
 - **DB values are derived, not guessed.** Entry `3460604`, model `7179` (from
-  creature 2685), GUIDs `6000026–6000035`, npc_text `3460700` were derived from
+  creature 2685), GUIDs `7000026–7000035`, npc_text `3460700` were derived from
   the live world DB (DSN in `MOD_UAC_WORLD_DATABASE_INFO` — never commit
   credentials). Any new baked value needs a derivation comment in the SQL.
 
