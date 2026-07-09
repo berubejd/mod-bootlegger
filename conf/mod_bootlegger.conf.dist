@@ -1,0 +1,4 @@
+[worldserver]
+
+# Bootleg.Enable — master switch. When 0, the NPC shows greeting only (no services).
+Bootleg.Enable = 1
