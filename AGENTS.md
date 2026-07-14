@@ -59,7 +59,7 @@ Outstanding items:
 ```
 Player clicks NPC
   └─ BootlegGossip::OnGossipHello
-       ├─ master disabled → greeting only (npc_text 3460700), no entries
+       ├─ master disabled → greeting only (npc_text 7000200), no entries
        └─ BootlegRegistry::AddRootEntries → each enabled+available service
           draws its root line
 Player clicks an option
@@ -90,7 +90,7 @@ return `false`.
 |---|---|
 | `src/mod_bootlegger.cpp` | `Addmod_bootleggerScripts()` — registers the two scripts |
 | `src/BootlegWorldScript.*` | `OnAfterConfigLoad` → `BootlegConfig::Load()` (supports `.reload config`) |
-| `src/BootlegGossip.*` | `CreatureScript` gossip hooks; sender check; root refresh; `BOOTLEG_NPC_TEXT_GREETING = 3460700` |
+| `src/BootlegGossip.*` | `CreatureScript` gossip hooks; sender check; root refresh; `BOOTLEG_NPC_TEXT_GREETING = 7000200` |
 | `src/BootlegConfig.*` | Meyers singleton; all config keys; gold→copper once at load (`GoldToCopper`, clamps at 21474 gold) |
 | `src/BootlegActions.h` | Action-ID blocks (see below) |
 | `src/BootlegService.h/.cpp` | Abstract service contract + default `OwnsAction` range check |
@@ -196,10 +196,10 @@ Implemented in `BootlegGossipUtil.cpp`; do not regress these without owner sign-
 - **No local builds.** This dev tree is reference-only. The maintainer compiles
   and tests on a deploy server. Verify API signatures against the neighboring
   `azerothcore-wotlk/` sources on disk instead of memory.
-- **DB values are derived, not guessed.** Entry `3460604`, model `7179` (from
-  creature 2685), GUIDs `7000026–7000035`, npc_text `3460700` were derived from
-  the live world DB (DSN in `MOD_UAC_WORLD_DATABASE_INFO` — never commit
-  credentials). Any new baked value needs a derivation comment in the SQL.
+- **DB values are derived, not guessed.** Reserved **7M band** (see below); model
+  `7179` from creature 2685 (read-only donor). Query the live world DB before
+  allocating new IDs (`MOD_UAC_WORLD_DATABASE_INFO` — never commit credentials).
+  Any new baked value needs a derivation comment in the SQL.
 
 ---
 
@@ -207,6 +207,25 @@ Implemented in `BootlegGossipUtil.cpp`; do not regress these without owner sign-
 
 - `MOD_UAC_WORLD_DATABASE_INFO` — world DB DSN (`host;port;user;pass;dbname`).
   Treat the password as a secret.
+
+### Reserved ID bands (cross-module — do not collide)
+
+| Module | Band | Notes |
+|---|---|---|
+| mod-uac capital trainers | `creature.guid` **6005000–6009999** | 14 snapshot-driven spawns |
+| **mod-bootlegger** | `creature_template` **7000000+**, `npc_text` **7000200+**, spawns **7000100+** | Fizzik + 10 capitals |
+| mod-guildhall | templates **8000000+**, spawns **8100000+**, GO **8200000+** | see `../mod-guildhall/ids.lock.yaml` |
+
+Bootlegger concrete values (install SQL):
+
+| Artifact | ID |
+|---|---|
+| `creature_template.entry` | `7000000` |
+| `npc_text` (greeting) | `7000200` |
+| `creature.guid` spawns | `7000100`–`7000109` |
+
+If a deploy still has the superseded **3460604 / 3460700 / 7000026** rows, run
+uninstall against those old IDs (or delete manually) before re-applying install SQL.
 - `data/client-data-v19.zip` — v19 DBCs (`SkillLineAbility.dbc`, `SkillLine.dbc`,
   `Spell.dbc`) for the profession rank-spell fallback if cap persistence fails.
 - Neighboring sources: `../azerothcore-wotlk/` for core API ground truth;
@@ -240,3 +259,4 @@ Implemented in `BootlegGossipUtil.cpp`; do not regress these without owner sign-
 | Inline coin-icon prices with affordance colors (`C8A800`/`CC3333`, icon height 12) | not in spec |
 | Utilities/instances close the window after purchase; professions redraw root | spec §7 (silent) |
 | CMake stub relying on the parent module glob is acceptable | spec §10 "real CMakeLists" |
+| Reserved **7M ID band** (`7000000` entry, `7000100` spawns, `7000200` text) | original 3460604 / 3460700 / 7000026 allocation |

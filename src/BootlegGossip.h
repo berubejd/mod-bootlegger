@@ -7,7 +7,7 @@
 // Must match @TEXT_ID in data/sql/db-world/mod_bootlegger.sql
 enum BootlegNpcText : uint32
 {
-    BOOTLEG_NPC_TEXT_GREETING = 3460700
+    BOOTLEG_NPC_TEXT_GREETING = 7000200
 };
 
 class BootlegCreatureScript : public CreatureScript

@@ -82,16 +82,22 @@ Full commented list: [conf/mod_bootlegger.conf.dist](conf/mod_bootlegger.conf.di
 
 ## Database footprint
 
+Reserved **7M band** — see [AGENTS.md](AGENTS.md) cross-module table.
+
 | Item | Value |
 |---|---|
-| `creature_template` entry | `3460604` |
+| `creature_template` entry | `7000000` |
 | Display | `7179` (borrowed from creature 2685 — that row is never modified) |
-| Spawn GUIDs | `7000026`–`7000035` (Stormwind, Ironforge, Undercity, Silvermoon, Exodar, Orgrimmar, Thunder Bluff, Darnassus, Dalaran, Shattrath) |
-| `npc_text` | `3460700` (greeting) |
+| Spawn GUIDs | `7000100`–`7000109` (Stormwind, Ironforge, Undercity, Silvermoon, Exodar, Orgrimmar, Thunder Bluff, Darnassus, Dalaran, Shattrath) |
+| `npc_text` | `7000200` (greeting) |
 | Script | `npc_bootlegger`, `npcflag = 1` (gossip only) |
 
 If these IDs collide with other custom content on your server, adjust the
 variables at the top of the install and uninstall SQL before applying.
+
+**Migrating from the old 3460k band:** if you previously applied install SQL with
+entry `3460604`, run uninstall with those old `@ENTRY`/`@GUID`/`@TEXT_ID` values
+(or delete those rows manually), then re-apply the current install SQL.
 
 ## Uninstall
 
