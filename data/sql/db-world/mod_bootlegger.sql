@@ -1,15 +1,15 @@
 -- mod-bootlegger: Fizzik Underbarrel — idempotent install (10 capital spawns).
 --
--- Derived values (acore_world via MOD_UAC_WORLD_DATABASE_INFO, 2026-07-09):
---   @ENTRY 3460604  — MAX(creature_template.entry)+1, COUNT=0 confirmed
---   @MODEL 7179     — creature_template_model WHERE CreatureID=2685 ORDER BY Idx LIMIT 1
---   @GUID 7000026   — MAX(creature.guid)+1; block @GUID..@GUID+9 (10 spawns)
---   @TEXT_ID 3460700 — custom npc_text band (paired with module entry range)
+-- Reserved 7M band (2026-07-14; moved from 3460k to clear headroom for mod-uac):
+--   @ENTRY    7000000  — creature_template (mod-bootlegger block 7000000–7000099)
+--   @TEXT_ID  7000200  — npc_text (7000200–7000299)
+--   @GUID     7000100  — creature spawns 7000100–7000109 (10 capitals)
+--   @MODEL    7179     — creature_template_model WHERE CreatureID=2685 ORDER BY Idx LIMIT 1
 
-SET @ENTRY   := 3460604;
+SET @ENTRY   := 7000000;
 SET @MODEL   := 7179;
-SET @GUID    := 7000026;
-SET @TEXT_ID := 3460700;
+SET @GUID    := 7000100;
+SET @TEXT_ID := 7000200;
 
 DELETE FROM `npc_text` WHERE `ID` = @TEXT_ID;
 INSERT INTO `npc_text` (`ID`, `text0_0`, `lang0`, `Probability0`, `VerifiedBuild`) VALUES
